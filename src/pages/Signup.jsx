@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import moviesLogo from "../../assets/MovieLogo.svg";
-import { signup } from "../../firebase-config";
+import moviesLogo from "../assets/MovieLogo.svg";
+import { signup } from "../firebase-config";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -20,9 +20,9 @@ const Signup = () => {
     setLoading(true);
     try {
       await signup(emailRef.current.value, confirmPasswordRef.current.value);
-      setTimeout(() => {
+      // setTimeout(() => {
         navigate("/login");
-      }, 5000);
+      // }, 5000);
     } catch (error) {
       console.error(error);
     }

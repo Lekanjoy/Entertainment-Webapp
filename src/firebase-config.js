@@ -20,7 +20,7 @@ export const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth();
 
 // sigUp Auth with email
 export function signup(email, password) {

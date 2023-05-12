@@ -1,9 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../firebase-config";
-import moviesLogo from "../../assets/MovieLogo.svg";
+import { login, useAuth } from "../firebase-config";
+import moviesLogo from "../assets/MovieLogo.svg";
+import {UserContext} from '../App'
 
 const Login = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -16,15 +19,23 @@ const Login = () => {
       alert("Please enter all fields");
       return;
     }
-    setLoading(true)
+    setLoading(true);
+
     try {
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate('/')
+      setIsLoggedIn(true);
+      // setTimeout(() => {
+        navigate("/");   
+      // }, 5000);
+
     } catch (error) {
-      console.error(error)
+      setIsLoggedIn(false);
+      console.error(error);
     }
-    setLoading(false)
+    setLoading(false);
   }
+
+  console.log(useAuth()?.uid);
 
   return (
     <section className="flex flex-col justify-center items-center w-full h-screen px-6 font-light">
@@ -36,18 +47,26 @@ const Login = () => {
       <form className="bg-darkBlue flex flex-col w-full  p-6 rounded-[10px] text-[15px] md:max-w-[400px] md:p-8">
         <h1 className=" mb-[40px] text-[32px] font">Login</h1>
         <input
-        ref={emailRef}
+          ref={emailRef}
           type="email"
           placeholder="Email address"
           className="outline-none  border-b border-b-red-[#5A698F]  pl-4 pb-4 mb-6 bg-transparent"
         />
         <input
-        ref={passwordRef}
+          ref={passwordRef}
           type="password"
           placeholder="Password"
           className="outline-none  border-b border-b-red-[#5A698F] pl-4 pb-4 mb-[40px] bg-transparent"
         />
-        <button className="bg-redColor rounded-[6px] mb-6 py-4">
+        <button
+        onClick={handleLogin}
+          disabled={loading}
+          className={
+            loading
+              ? `bg-redColor rounded-[6px] mb-6 py-4 cursor-not-allowed opacity-50`
+              : "bg-redColor rounded-[6px] mb-6 py-4 cursor-pointer"
+          }
+        >
           Login to your account
         </button>
         <div className="flex gap-x-2 text-[15px] self-center">
