@@ -34,7 +34,7 @@ export function login(email, password) {
 export function logOut() {
   return signOut(auth);
 }
-
+ 
 
 // Custom Hook for Current User
 export function useAuth() {

@@ -1,15 +1,12 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, useAuth } from "../firebase-config";
 import moviesLogo from "../assets/MovieLogo.svg";
-import {UserContext} from '../App'
 
 const Login = () => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
-
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -19,23 +16,20 @@ const Login = () => {
       alert("Please enter all fields");
       return;
     }
-    setLoading(true);
 
+    setLoading(true);
     try {
       await login(emailRef.current.value, passwordRef.current.value);
-      setIsLoggedIn(true);
       // setTimeout(() => {
         navigate("/");   
       // }, 5000);
 
     } catch (error) {
-      setIsLoggedIn(false);
       console.error(error);
     }
     setLoading(false);
   }
 
-  console.log(useAuth()?.uid);
 
   return (
     <section className="flex flex-col justify-center items-center w-full h-screen px-6 font-light">
