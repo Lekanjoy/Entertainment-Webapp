@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Movie from "../components/Movie";
 import SearchBar from "../components/SearchBar";
 import SkeletonLoaderMovies from "../components/SkeletonLoaderMovies";
+import Movie from "../components/Movie";
 
 const Movies = () => {
   const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
@@ -56,8 +56,7 @@ const Movies = () => {
         {/* Map through movies and show Skeleton Loader when loading  */}
         {loading
           ? [...Array(20)].map((_, i) => <SkeletonLoaderMovies key={i} />)
-          : movies.map((movie) => <Movie key={movie.id} movie={movie} />)
-          }
+          : movies.map((movie) => <Movie key={movie.id} movie={movie} />)}
       </div>
     </section>
   );

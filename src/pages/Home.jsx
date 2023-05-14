@@ -4,6 +4,7 @@ import Trending from "../components/Trending";
 import SearchBar from "../components/SearchBar";
 import Movie from "../components/Movie";
 import SkeletonLoaderTrending from "../components/SkeletonLoaderTrending";
+// import Recommended from "../components/Recommended";
 
 const Home = () => {
   const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
@@ -15,7 +16,7 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [tvShows, setTvShows] = useState([]);
 
-  const allResults = [...movies, ...tvShows];
+  // const allResults = [...movies, ...tvShows];
 
   // GET TRENDING MOVIES AND TV SERIES
   useEffect(() => {
@@ -24,7 +25,6 @@ const Home = () => {
       .then((data) => {
         setTrending(data.results);
         setLoading(false);
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -32,31 +32,78 @@ const Home = () => {
   }, []);
 
   // GET SEARCH RESULTS
-  useEffect(() => {
-    if (searchTerm !== "") {
-      fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${searchTerm}&include_adult=false`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          const allResults = data.results;
-          const movies = allResults.filter(
-            (result) => result.media_type === "movie"
-          );
-          const tvShows = allResults.filter(
-            (result) => result.media_type === "tv"
-          );
-          setMovies(movies);
-          setTvShows(tvShows);
-          // setLoading(false);
 
-          // setSearchResults(data.results);
-          // console.log(data);
-        })
-        .catch((err) => {
-          console.log(err);
+  // useEffect(() => {
+  //   if (searchTerm !== "") {
+  //     fetch(
+  //       `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=en-US&query=${searchTerm}&include_adult=false`
+  //     )
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         const allResults = data.results;
+  //         const movies = allResults.filter(
+  //           (result) => result.media_type === "movie"
+  //         );
+  //         const tvShows = allResults.filter(
+  //           (result) => result.media_type === "tv"
+  //         );
+  //         setMovies(movies);
+  //         setTvShows(tvShows);
+  //         setLoading(false);
+
+  //         // setSearchResults(data.results);
+  //         // console.log(data);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [searchTerm]);
+
+  // GET SEARCH RESULTS AND RECOMMENDED MOVIES AND TV SERIES BASED ON PREVIOUS SEARCH
+  const language = "en-US";
+  const page = 1;
+  const includeAdult = false;
+
+  // GET SEARCH RESULTS AND RECOMMENDED MOVIES AND TV SERIES BASED ON PREVIOUS SEARCH
+  useEffect(() => {
+    const searchEndpoint = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=${language}&query=${searchTerm}&page=${page}&include_adult=${includeAdult}`;
+    fetch(searchEndpoint)
+      .then((response) => response.json())
+      .then((data) => {
+        setSearchResults(data.results);
+
+        // Find the first movie or TV show that matches the query
+        const matchingResults = searchResults.filter((result) => {
+          const title = result.title || result.name;
+          return (
+            (result.media_type === "movie" || result.media_type === "tv") &&
+            title.includes(searchTerm)
+          );
         });
-    }
+
+        console.log(matchingResults);
+        // If no matching movie or TV show is found, log an error message and return
+        if (matchingResults.length === 0) {
+          console.error(
+            `No matching movie or TV show found for query "${searchTerm}"`
+          );
+          return;
+        }
+
+        // Retrieve the recommendations for each matching movie or TV show
+        const id = matchingResults[0].id;
+        console.log(id);
+        const recommendationEndpoint = `https://api.themoviedb.org/3/${matchingResults[0].media_type}/${id}/recommendations?api_key=${API_KEY}&language=${language}&page=${page}`;
+        fetch(recommendationEndpoint)
+          .then((response) => response.json())
+          .then((data) => {
+            setRecommended(data.results);
+          })
+          .catch((error) => console.error(error));
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, [searchTerm]);
 
   return (
@@ -67,9 +114,10 @@ const Home = () => {
         placeholder="Search for movies or TV series"
       />
       <>
-        {allResults.length > 0 && searchTerm !== "" ? (
+        {searchResults.length > 0 && searchTerm !== "" ? (
           <p className="font-light text-xl my-6">
-            Found {allResults.length} results for ‘{searchTerm}’
+            Found {searchResults.length} result
+            {searchResults.length > 1 ? "s" : ""} for ‘{searchTerm}’
           </p>
         ) : (
           <h1 className="mt-6 mb-4 font-light text-xl">Trending</h1>
@@ -77,9 +125,9 @@ const Home = () => {
       </>
 
       <>
-        {allResults.length > 0 && searchTerm !== "" ? (
+        {searchResults.length > 0 && searchTerm !== "" ? (
           <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {allResults.map((result) => {
+            {searchResults.map((result) => {
               return <Movie key={result.id} movie={result} />;
             })}
           </div>
@@ -95,6 +143,17 @@ const Home = () => {
       </>
       <section className="mt-6 w-full">
         <h1 className=" mb-4 font-light text-xl">Recommended for you</h1>
+        {recommended.length > 0 ? (
+          <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {recommended.map((result) => {
+              return <Movie key={result.id} movie={result} />;
+            })}
+          </div>
+        ) : (
+          <p className="font-light text-lg text-center py-6">
+            No recommendations yet
+          </p>
+        )}
       </section>
     </main>
   );

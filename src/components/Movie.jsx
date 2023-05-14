@@ -15,7 +15,7 @@ const Movie = ({ movie }) => {
             : img
         }
         alt={movie.title || movie.name}
-        className="mb-2 w-full rounded-lg max-h-[110px] "
+        className="mb-2 w-full rounded-lg max-h-[110px "
       />
       <img
         src={bookmarkIcon}
