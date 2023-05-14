@@ -6,9 +6,10 @@ import Series from "./pages/Series";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import PrivateRoutes from "./PrivateRoutes";
-import Header from "./components/Header";
 import Movies from "./pages/Movies";
 import Boookmarks from "./pages/Boookmarks";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
 
 export const UserContext = createContext();
 function App() {
@@ -31,6 +32,7 @@ function App() {
   return (
     <div className="relative bg-background w-full min-h-screen text-primaryColor font-[Nunito]">
       <Header />
+      {/* <SearchBar/> */}
       <UserContext.Provider value={{ currentUser }}>
         <Routes>
           <Route element={<PrivateRoutes />}>
