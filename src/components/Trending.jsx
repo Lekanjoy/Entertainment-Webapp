@@ -2,8 +2,8 @@ import React from "react";
 import bookmarkIcon from "../assets/trending-assets/bookmarkIcon.svg";
 import movieIcon from "../assets/trending-assets/movieIcon.svg";
 
-const Trending = ({trending}) => {
-    const release_date = trending.release_date;
+const Trending = ({ trending }) => {
+  const release_date = trending.release_date;
 
   return (
     <div className="trendingLogo relative w-full min-w-[240px] max-h-[140px]">
@@ -27,14 +27,11 @@ const Trending = ({trending}) => {
             </div>
             <p>{trending.media_type}</p>
           </div>
-          {trending.adult === true ? (
-            <div className="flex gap-x-2">
-              <p className="opacity-50">•</p>
-              <p>PG</p>
-            </div>
-          ) : (
-            ""
-          )}
+
+          <div className="flex gap-x-2">
+            <p className="opacity-50">•</p>
+            <p>PG</p>
+          </div>
         </div>
         <h2 className="text-[15px] font-medium mt-1">
           {trending.title ? trending.title : trending.original_name}
@@ -45,4 +42,4 @@ const Trending = ({trending}) => {
 };
 
 export default Trending;
-// 
+//

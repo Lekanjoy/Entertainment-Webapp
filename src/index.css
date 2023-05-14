@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+    *{
+        -webkit-tap-highlight-color: transparent;
+    }
     .trendingLogo::after {
         content: "";
         display: block;

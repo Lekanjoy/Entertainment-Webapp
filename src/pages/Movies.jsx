@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Movie from "../components/Movie";
 import SearchBar from "../components/SearchBar";
+import SkeletonLoaderMovies from "../components/SkeletonLoaderMovies";
 
 const Movies = () => {
   const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
+  const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // GET SEARCH RESULTS
   useEffect(() => {
     if (searchTerm !== "") {
       fetch(
@@ -15,6 +18,7 @@ const Movies = () => {
         .then((res) => res.json())
         .then((data) => {
           setMovies(data.results);
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err);
@@ -22,6 +26,7 @@ const Movies = () => {
     }
   }, [searchTerm]);
 
+  // GET POPULAR MOVIES
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
@@ -29,6 +34,7 @@ const Movies = () => {
       .then((res) => res.json())
       .then((data) => {
         setMovies(data.results);
+        setLoading(false);
         // console.log(data);
       })
       .catch((err) => {
@@ -47,9 +53,11 @@ const Movies = () => {
         Popular Movies
       </h1>
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {movies.map((movie) => {
-          return <Movie key={movie.id} movie={movie} />;
-        })}
+        {/* Map through movies and show Skeleton Loader when loading  */}
+        {loading
+          ? [...Array(20)].map((_, i) => <SkeletonLoaderMovies key={i} />)
+          : movies.map((movie) => <Movie key={movie.id} movie={movie} />)
+          }
       </div>
     </section>
   );
