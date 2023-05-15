@@ -1,16 +1,20 @@
 import React from "react";
 import searchIcon from "../assets/header-assets/search.svg";
 
-const SearchBar = ({searchTerm, setSearchTerm, placeholder}) => {
-
+const SearchBar = ({ searchTerm, setSearchTerm, placeholder }) => {
+  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
   return (
-    <form className="relative  mt-6 w-full">
+    <form className="relative pt-24 w-full ">
       <label htmlFor="search">
-        <img src={searchIcon} alt="Search Icon" className="absolute cursor-pointer " />
+        <img
+          src={searchIcon}
+          alt="Search Icon"
+          className="absolute cursor-pointer "
+        />
       </label>
       <input
         onChange={handleSearch}
@@ -18,7 +22,7 @@ const SearchBar = ({searchTerm, setSearchTerm, placeholder}) => {
         type="search"
         id="search"
         placeholder={placeholder}
-        className="w-2/3 h-6  pl-8 bg-transparent border-none outline-none text-white font-light"
+        className="w-2/3  caret-redColor  pl-8 pb-3 bg-transparent border-0 outline-none text-white font-light focus:border-b focus:border-b-[#5A698F]"
       />
     </form>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import bookmarkIcon from "../assets/trending-assets/bookmarkIcon.svg";
 import movieIcon from "../assets/trending-assets/movieIcon.svg";
+import playIcon from "../assets/playIcon.svg";
 
 const Trending = ({ trending }) => {
   const release_date = trending.release_date;
@@ -16,6 +17,11 @@ const Trending = ({ trending }) => {
         src={bookmarkIcon}
         alt="Bookmark Icon"
         className="absolute top-2 right-2 cursor-pointer"
+      />
+      <img
+        src={playIcon}
+        alt="Bookmark Icon"
+        className="playIcon absolute top-[25%] right-[25%] w-5 h-5 cursor-pointer"
       />
       <div className="flex flex-col absolute bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">

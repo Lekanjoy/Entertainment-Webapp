@@ -2,12 +2,13 @@ import React from "react";
 import img from "../assets/trending-assets/trendingImg.svg";
 import bookmarkIcon from "../assets/trending-assets/bookmarkIcon.svg";
 import movieIcon from "../assets/trending-assets/movieIcon.svg";
+import playIcon from "../assets/playIcon.svg";
 
 const Movie = ({ movie }) => {
   const release_date = movie.release_date;
 
   return (
-    <div className="relative w-full">
+    <div className="movieContainer relative w-full ">
       <img
         src={
           movie.poster_path
@@ -21,6 +22,11 @@ const Movie = ({ movie }) => {
         src={bookmarkIcon}
         alt="Bookmark Icon"
         className="absolute top-2 right-2 cursor-pointer"
+      />
+      <img
+        src={playIcon}
+        alt="Bookmark Icon"
+        className="playIcon absolute top-[37%] right-[20%] cursor-pointer"
       />
       <div className="flex flex-col  bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">

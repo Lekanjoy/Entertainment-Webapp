@@ -10,7 +10,7 @@ const Header = () => {
   const [fill4, setFill4] = useState("");
 
   return (
-    <header className="relative flex justify-between items-center bg-[#161D2F] px-4 py-[18px] lg:fixed lg:left-3 lg:top-20 lg:flex-col lg:min-h-[80vh]">
+    <header className="flex justify-between items-center bg-[#161D2F] px-4 py-[18px] fixed left-0 top-0 w-full z-10 lg:left-3 lg:top-20 lg:flex-col lg:w-fit lg:min-h-[80vh]">
       <img src={movieLogo} alt="App Logo" />
       <div className="flex gap-x-6 lg:flex-col lg:gap-y-12">
         <NavLink

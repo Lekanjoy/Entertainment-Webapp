@@ -45,19 +45,19 @@ const Signup = () => {
           ref={emailRef}
           type="email"
           placeholder="Email address"
-          className="outline-none  border-b border-b-red-[#5A698F]  pl-4 pb-4 mb-6 bg-transparent"
+          className="outline-none  border-b border-b-[#5A698F]  pl-4 pb-4 mb-6 bg-transparent"
         />
         <input
           ref={passwordRef}
           type="password"
           placeholder="Password"
-          className="outline-none  border-b border-b-red-[#5A698F] pl-4 pb-4 mb-6 bg-transparent"
+          className="outline-none  border-b border-b-[#5A698F] pl-4 pb-4 mb-6 bg-transparent"
         />
         <input
           ref={confirmPasswordRef}
           type="password"
           placeholder="Repeat Password"
-          className="outline-none  border-b border-b-red-[#5A698F] pl-4 pb-4 mb-[40px] bg-transparent"
+          className="outline-none  border-b border-b-[#5A698F] pl-4 pb-4 mb-[40px] bg-transparent"
         />
         <button
           disabled={loading}

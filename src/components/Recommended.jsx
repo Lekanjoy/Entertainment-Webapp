@@ -1,35 +1,41 @@
-import React, { useEffect, useState } from "react";
-import SkeletonLoaderMovies from "./SkeletonLoaderMovies";
+import React, { useContext } from "react";
 import Movie from "./Movie";
+import { UserContext } from "../App";
+import { Link } from "react-router-dom";
+import SkeletonLoaderMovies from "./SkeletonLoaderMovies";
 
 const Recommended = () => {
-  const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
-  const [loading, setLoading] = useState(true);
-  const [recommended, setRecommended] = useState([]);
+  const { recommended, loadingRecommended, searchTerm } = useContext(UserContext);
 
-  //   GET RECOMMENDED MOVIES BASED ON PREVIOUS SEARCH
-  useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/550/recommendations?api_key=${API_KEY}&language=en-US&page=2`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setRecommended(data.results);
-        setLoading(false);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  if (loadingRecommended) {
+    return (
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {[...Array(10)].map((_, i) => (
+          <SkeletonLoaderMovies key={i} />
+        ))}
+        ;
+      </div>
+    );
+  }
 
   return (
-    <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {/* Map through movies and show Skeleton Loader when loading  */}
-      {loading
-        ? [...Array(20)].map((_, i) => <SkeletonLoaderMovies key={i} />)
-        : recommended.map((movie) => <Movie key={movie.id} movie={movie} />)}
-    </div>
+    <>
+      {recommended.length > 0 ? (
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {recommended.map((result) => {
+            return (
+              <Link key={result.id} to={`/movies/movie/${result.id}`}>
+                <Movie movie={result} />
+              </Link>
+            );
+          })}
+        </div>
+      ) : (
+        <p className="font-light text-lg text-center py-6">
+          No recommendations yet
+        </p>
+      )}
+    </>
   );
 };
 

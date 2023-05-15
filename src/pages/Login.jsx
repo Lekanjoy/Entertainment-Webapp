@@ -7,29 +7,26 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
 
   async function handleLogin(e) {
     e.preventDefault();
     if (emailRef.current.value == "" || passwordRef.current.value == "") {
-      alert("Please enter all fields");
+      setError(true);
       return;
     }
-
+    setError(false);
     setLoading(true);
     try {
       await login(emailRef.current.value, passwordRef.current.value);
-      // setTimeout(() => {
-        navigate("/");   
-      // }, 5000);
-
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
     setLoading(false);
   }
-
 
   return (
     <section className="flex flex-col justify-center items-center w-full h-screen px-6 font-light">
@@ -44,21 +41,25 @@ const Login = () => {
           ref={emailRef}
           type="email"
           placeholder="Email address"
-          className="outline-none  border-b border-b-red-[#5A698F]  pl-4 pb-4 mb-6 bg-transparent"
+          className="outline-none  border-b border-b-[#5A698F]  pl-4 pb-4 mb-6 bg-transparent"
         />
         <input
           ref={passwordRef}
           type="password"
           placeholder="Password"
-          className="outline-none  border-b border-b-red-[#5A698F] pl-4 pb-4 mb-[40px] bg-transparent"
+          className={
+            error
+              ? `border-redColor outline-none  border-b pl-4 pb-4 mb-[40px] bg-transparent`
+              : `outline-none  border-b border-b-[#5A698F] pl-4 pb-4 mb-[40px] bg-transparent`
+          }
         />
         <button
-        onClick={handleLogin}
+          onClick={handleLogin}
           disabled={loading}
           className={
             loading
               ? `bg-redColor rounded-[6px] mb-6 py-4 cursor-not-allowed opacity-50`
-              : "bg-redColor rounded-[6px] mb-6 py-4 cursor-pointer"
+              : "bg-redColor rounded-[6px] mb-6 py-4 cursor-pointer duration-500 hover:bg-primaryColor hover:text-darkBlue"
           }
         >
           Login to your account
