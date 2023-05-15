@@ -21,7 +21,7 @@ const Trending = ({ trending }) => {
       <img
         src={playIcon}
         alt="Bookmark Icon"
-        className="playIcon absolute top-[25%] right-[25%] w-5 h-5 cursor-pointer"
+        className="playIcon absolute top-[15%] right-[35%] w-20 h-20 cursor-pointer"
       />
       <div className="flex flex-col absolute bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">
