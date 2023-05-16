@@ -15,8 +15,8 @@ const SearchResultsOrTrending = ({ trending, loadingTrending }) => {
         <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {searchResults.map((result) => {
             return (
-              <Link to={`/movies/movie/${result.id}`}>
-                <Movie key={result.id} movie={result} />
+              <Link key={result.id} to={`/movies/movie/${result.id}`}>
+                <Movie movie={result} />
               </Link>
             );
           })}
@@ -26,7 +26,9 @@ const SearchResultsOrTrending = ({ trending, loadingTrending }) => {
           {loadingTrending
             ? [...Array(20)].map((_, i) => <SkeletonLoaderTrending key={i} />)
             : trending.map((item) => (
-                <Trending key={item.id} trending={item} />
+                <Link key={item.id} to={`/movies/trending/${item.id}`}>
+                  <Trending  trending={item} />
+                </Link>
               ))}
         </ScrollContainer>
       )}

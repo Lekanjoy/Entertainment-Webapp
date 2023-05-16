@@ -1,5 +1,5 @@
 import { useState, createContext, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import { useAuth, auth } from "./firebase-config";
 import Home from "./pages/Home";
 import Series from "./pages/Series";
@@ -35,7 +35,22 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [loadingMovies, setLoadingMovies] = useState(true);
   const [loadingRecommended, setLoadingRecommended] = useState(true);
+  const [trending, setTrending] = useState([]);
+  const [loadingTrending, setLoadingTrending] = useState(true);
 
+  // GET TRENDING MOVIES AND TV SERIES
+  useEffect(() => {
+    fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTrending(data.results);
+        setLoadingTrending(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  
   // GET POPULAR MOVIES
   useEffect(() => {
     fetch(
@@ -51,7 +66,7 @@ function App() {
       });
   }, [searchTermMovies]);
 
-  // GET SEARCH RESULTS AND RECOMMENDED MOVIES AND TV SERIES BASED ON PREVIOUS SEARCH
+  // GET SEARCH RESULTS AND RECOMMENDED MOVIES/TV SERIES BASED ON PREVIOUS SEARCH
   const language = "en-US";
   const page = 1;
   const includeAdult = false;
@@ -66,14 +81,14 @@ function App() {
 
         // Find the first movie or TV show that matches the query
         const matchingResults = searchResults.filter((result) => {
-          const title = result.title || result.name;
+          const title = result.title || result.name || result.original_title;
           return (
             (result.media_type === "movie" || result.media_type === "tv") &&
             title.includes(searchTerm)
           );
         });
 
-        console.log(matchingResults);
+        // console.log(matchingResults);
         // If no matching movie or TV show is found, log an error message and return
         if (matchingResults.length === 0) {
           console.error(
@@ -84,7 +99,6 @@ function App() {
 
         // Retrieve the recommendations for each matching movie or TV show
         const id = matchingResults[0].id;
-        console.log(id);
         const recommendationEndpoint = `https://api.themoviedb.org/3/${matchingResults[0].media_type}/${id}/recommendations?api_key=${API_KEY}&language=${language}&page=${page}`;
         fetch(recommendationEndpoint)
           .then((response) => response.json())
@@ -96,6 +110,7 @@ function App() {
       })
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
+
   }, [searchTerm]);
 
   return (
@@ -115,6 +130,8 @@ function App() {
           loadingRecommended,
           searchTermMovies,
           setSearchTermMovies,
+          trending,
+          loadingTrending,
         }}
       >
         <Header />
@@ -125,6 +142,7 @@ function App() {
             <Route path="/series" element={<Series />} />
             <Route path="/bookmark" element={<Boookmarks />} />
             <Route path="/movies/movie/:id" element={<MovieDetails />} />
+            <Route path="/movies/trending/:id" element={<MovieDetails />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

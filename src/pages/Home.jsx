@@ -6,25 +6,10 @@ import Title from "../components/Title";
 import SearchResultsOrTrending from "../components/SearchResultsOrTrending";
 
 const Home = () => {
-  const { searchTerm, setSearchTerm } = useContext(UserContext);
-  const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
+  const { searchTerm, setSearchTerm, trending, loadingTrending } = useContext(UserContext);
 
-  const [trending, setTrending] = useState([]);
-  const [loadingTrending, setLoadingTrending] = useState(true);
   const [toolTip, setToolTip] = useState(false);
 
-  // GET TRENDING MOVIES AND TV SERIES
-  useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setTrending(data.results);
-        setLoadingTrending(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   return (
     <main className="px-4">

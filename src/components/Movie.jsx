@@ -25,8 +25,8 @@ const Movie = ({ movie }) => {
       />
       <img
         src={playIcon}
-        alt="Bookmark Icon"
-        className="playIcon absolute top-[37%] right-[20%] cursor-pointer"
+        alt="Play Icon"
+        className="playIcon absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]   cursor-pointer"
       />
       <div className="flex flex-col  bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">
