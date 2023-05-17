@@ -88,15 +88,6 @@ function App() {
           );
         });
 
-        // console.log(matchingResults);
-        // If no matching movie or TV show is found, log an error message and return
-        if (matchingResults.length === 0) {
-          console.error(
-            `No matching movie or TV show found for query "${searchTerm}"`
-          );
-          return;
-        }
-
         // Retrieve the recommendations for each matching movie or TV show
         const id = matchingResults[0].id;
         const recommendationEndpoint = `https://api.themoviedb.org/3/${matchingResults[0].media_type}/${id}/recommendations?api_key=${API_KEY}&language=${language}&page=${page}`;

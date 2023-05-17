@@ -11,12 +11,14 @@ const Movie = ({ movie }) => {
     <div className="movieContainer relative w-full ">
       <img
         src={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+          movie.poster_path || movie.backdrop_path
+            ? `https://image.tmdb.org/t/p/w200${
+                movie.backdrop_path || movie.poster_path
+              }`
             : img
         }
-        alt={movie.title || movie.name}
-        className="mb-2 w-full rounded-lg max-h-[110px "
+        alt={movie.title || movie.original_title || movie.original_name}
+        className="mb-2 w-full rounded-lg h-[130px] "
       />
       <img
         src={bookmarkIcon}
@@ -26,7 +28,7 @@ const Movie = ({ movie }) => {
       <img
         src={playIcon}
         alt="Play Icon"
-        className="playIcon absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]   cursor-pointer"
+        className="playIcon absolute  w-24 h-24 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-70%]   cursor-pointer"
       />
       <div className="flex flex-col  bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">

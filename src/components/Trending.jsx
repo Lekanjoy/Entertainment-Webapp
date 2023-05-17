@@ -9,7 +9,7 @@ const Trending = ({ trending }) => {
   return (
     <div className="trendingLogo relative w-full min-w-[240px] max-h-[140px]">
       <img
-        src={`https://image.tmdb.org/t/p/w200${trending.poster_path}`}
+        src={`https://image.tmdb.org/t/p/w200${trending.backdrop_path}`}
         alt={trending.title}
         className=" w-full h-full rounded-lg"
       />
