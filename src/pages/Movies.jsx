@@ -42,9 +42,10 @@ const Movies = () => {
         setSearchTerm={setSearchTermMovies}
         placeholder="Search for movies"
       />
-      <h1 className="my-6 font-light text-xl tracking-[-0.3125px]">
-        Popular Movies
-      </h1>
+      <div className="my-6 font-light text-xl tracking-[-0.3125px] flex gap-x-2 items-center ">
+        <h1 className="text-xl">Popular</h1>
+        <p className="border font-medium py-[1px] text-xs px-2 rounded-md">MOVIE</p>
+      </div>
       <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {/* Map through movies and show Skeleton Loader when loading  */}
         {loadingMovies

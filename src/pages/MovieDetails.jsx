@@ -7,12 +7,13 @@ const MovieDetails = () => {
   const [loading, setLoading] = useState(true);
   const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
 
-  const { searchResults, recommended, movies, trending } =
+  const { searchResults, recommended, movies,series, trending } =
     useContext(UserContext);
   const getAllMoviesDetails = [
     ...searchResults,
     ...recommended,
     ...movies,
+    ...series,
     ...trending,
   ];
   const { id } = useParams();

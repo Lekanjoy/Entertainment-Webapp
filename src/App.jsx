@@ -28,13 +28,20 @@ function App() {
 
   const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
   const [searchResults, setSearchResults] = useState([]);
-  const [recommended, setRecommended] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchTermMovies, setSearchTermMovies] = useState("");
   const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const [loadingMovies, setLoadingMovies] = useState(true);
+
+  const [recommended, setRecommended] = useState([]);
   const [loadingRecommended, setLoadingRecommended] = useState(true);
+
+  const [movies, setMovies] = useState([]);
+  const [searchTermMovies, setSearchTermMovies] = useState("");
+  const [loadingMovies, setLoadingMovies] = useState(true);
+
+  const [series, setSeries] = useState([]);
+  const [searchTermSeries, setSearchTermSeries] = useState("");
+  const [loadingSeries, setLoadingSeries] = useState(true);
+
   const [trending, setTrending] = useState([]);
   const [loadingTrending, setLoadingTrending] = useState(true);
 
@@ -50,7 +57,7 @@ function App() {
         console.log(err);
       });
   }, []);
-  
+
   // GET POPULAR MOVIES
   useEffect(() => {
     fetch(
@@ -65,6 +72,21 @@ function App() {
         console.log(err);
       });
   }, [searchTermMovies]);
+
+  // GET POPULAR TV SERIES
+  useEffect(() => {
+    fetch(
+      `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=1`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setSeries(data.results);
+        setLoadingSeries(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [searchTermSeries]);
 
   // GET SEARCH RESULTS AND RECOMMENDED MOVIES/TV SERIES BASED ON PREVIOUS SEARCH
   const language = "en-US";
@@ -101,7 +123,6 @@ function App() {
       })
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
-
   }, [searchTerm]);
 
   return (
@@ -123,6 +144,10 @@ function App() {
           setSearchTermMovies,
           trending,
           loadingTrending,
+          series,
+          setSeries,
+          loadingSeries,
+          searchTermSeries,
         }}
       >
         <Header />
@@ -134,6 +159,7 @@ function App() {
             <Route path="/bookmark" element={<Boookmarks />} />
             <Route path="/movies/movie/:id" element={<MovieDetails />} />
             <Route path="/movies/trending/:id" element={<MovieDetails />} />
+            <Route path="/movies/tv/:id" element={<MovieDetails />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
