@@ -7,7 +7,7 @@ const MovieDetails = () => {
   const [loading, setLoading] = useState(true);
   const API_KEY = import.meta.env.VITE_REACT_APP_TMBDB_API_KEY;
 
-  const { searchResults, recommended, movies,series, trending } =
+  const { searchResults, recommended, movies, series, trending } =
     useContext(UserContext);
   const getAllMoviesDetails = [
     ...searchResults,
@@ -16,15 +16,23 @@ const MovieDetails = () => {
     ...series,
     ...trending,
   ];
-  const { id } = useParams();
+
   // Find the movie or TV show that matches the ID
+  const { id } = useParams();
   const findMovieDetails = getAllMoviesDetails.find(
     (result) => result.id === parseInt(id)
   );
 
-  const media_type = findMovieDetails?.media_type || "movie";
+  // Check if media type is movie or tv
+  const [movieOrTv] = useState(
+    findMovieDetails?.release_date
+      ? "movie"
+      : findMovieDetails?.first_air_date
+      ? "tv"
+      : "person"
+  );
   const media_type_id = findMovieDetails?.id;
-  const fetchDetails = `https://api.themoviedb.org/3/${media_type}/${media_type_id}?api_key=${API_KEY}&language=en-US`;
+  const fetchDetails = `https://api.themoviedb.org/3/${movieOrTv}/${media_type_id}?api_key=${API_KEY}&language=en-US`;
 
   // Fetching Details
   useEffect(() => {
@@ -38,7 +46,7 @@ const MovieDetails = () => {
   }, [fetchDetails]);
 
   // Fetching Cast
-  const fetchCast = `https://api.themoviedb.org/3/${media_type}/${media_type_id}/credits?api_key=${API_KEY}&language=en-US`;
+  const fetchCast = `https://api.themoviedb.org/3/${movieOrTv}/${media_type_id}/credits?api_key=${API_KEY}&language=en-US`;
   const [cast, setCast] = useState([]);
   useEffect(() => {
     fetch(fetchCast)
@@ -50,9 +58,16 @@ const MovieDetails = () => {
   }, [fetchCast]);
 
   // Slice to show only year
-  const releaseYear = fullMovieDetail.release_date?.slice(0, 4);
+  const releaseYear =
+    fullMovieDetail.release_date?.slice(0, 4) ||
+    fullMovieDetail.first_air_date?.slice(0, 4);
   // Get Main Spoken Language
-  const spokenLanguage = fullMovieDetail.spoken_languages?.[0].name;
+  const spokenLanguage =
+    fullMovieDetail.spoken_languages?.[0].english_name ||
+    fullMovieDetail.spoken_languages?.[0].name;
+  // Get TV and Movie Runtime
+  const runtime = fullMovieDetail.episode_run_time || fullMovieDetail.runtime;
+
   // Get Rating and use it to show stars
   const rating = fullMovieDetail.vote_average;
   const stars = [];
@@ -92,6 +107,8 @@ const MovieDetails = () => {
     }
   }
 
+  console.log(fullMovieDetail);
+
   return (
     <section className="px-4 pt-20 pb-4 w-full">
       <div className="w-full flex justify-center">
@@ -106,7 +123,9 @@ const MovieDetails = () => {
         )}
       </div>
       <div className="w-full flex flex-col justify-center items-center text-center pb-4">
-        <h1 className="text-2xl font-light mt-4">{fullMovieDetail.title}</h1>
+        <h1 className="text-2xl font-light mt-4">
+          {fullMovieDetail.title || fullMovieDetail.name}
+        </h1>
         <p className="font-light text-sm text-[#86888d]">
           {fullMovieDetail.tagline}
         </p>
@@ -118,22 +137,28 @@ const MovieDetails = () => {
         <div className="flex gap-x-1">{stars}</div>
       </div>
 
-      <div className="w-full flex  justify-between items-center py-4">
-        <div>
-          <p className=" text-[#86888d]">Length</p>
-          <p>
-            {fullMovieDetail.runtime
-              ? fullMovieDetail.runtime + `mins.`
-              : `N/A`}
-          </p>
-        </div>
+      <div className="w-full flex  justify-between  gap-x-2 py-4">
         <div>
           <p className=" text-[#86888d]">Language</p>
           <p className="">{spokenLanguage}</p>
         </div>
         <div>
-          <p className=" text-[#86888d]">Year</p>
-          <p className="">{releaseYear || "N/A"}</p>
+          <p className=" text-[#86888d]">
+            {movieOrTv === "tv" ? "First Air" : "Length"}
+          </p>
+          <p>
+            {movieOrTv === "tv"
+              ? fullMovieDetail.first_air_date
+              : runtime + `mins.`}
+          </p>
+        </div>
+        <div>
+          <p className=" text-[#86888d]">
+            {movieOrTv === "tv" ? "Last Air" : "Year"}
+          </p>
+          <p>
+            {movieOrTv === "tv" ? fullMovieDetail.last_air_date : releaseYear}
+          </p>
         </div>
         <div>
           <p className=" text-[#86888d]">Status</p>
@@ -158,7 +183,11 @@ const MovieDetails = () => {
         <h2 className="mb-3">Cast</h2>
         <div className="flex gap-2 flex-wrap w-full">
           {cast?.map((actor) => {
-            return <p className="text-sm border px-2 rounded">{actor.name}</p>;
+            return (
+              <p key={actor.name} className="text-sm border px-2 rounded">
+                {actor.name}
+              </p>
+            );
           })}
         </div>
       </div>

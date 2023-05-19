@@ -146,6 +146,7 @@ function App() {
           loadingTrending,
           series,
           setSeries,
+          setSearchTermSeries,
           loadingSeries,
           searchTermSeries,
         }}

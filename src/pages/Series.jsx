@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import { UserContext } from "../App";
-import Movie from "../components/Movie";
 import SkeletonLoaderMovies from "../components/SkeletonLoaderMovies";
+import TV from "../components/TV";
 
 const Series = () => {
   const {
@@ -53,7 +53,7 @@ const Series = () => {
           ? [...Array(20)].map((_, i) => <SkeletonLoaderMovies key={i} />)
           : series.map((tv) => (
               <Link key={tv.id} to={`/movies/tv/${tv.id}`}>
-                <Movie movie={tv} />
+                <TV movie={tv} />
               </Link>
             ))}
       </div>
