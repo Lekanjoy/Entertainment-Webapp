@@ -140,13 +140,13 @@ const MovieDetails = () => {
       <div className="w-full flex  justify-between  gap-x-2 py-4">
         <div>
           <p className=" text-[#86888d]">Language</p>
-          <p className="">{spokenLanguage}</p>
+          <p className="text-sm">{spokenLanguage}</p>
         </div>
         <div>
           <p className=" text-[#86888d]">
             {movieOrTv === "tv" ? "First Air" : "Length"}
           </p>
-          <p>
+          <p className="text-sm">
             {movieOrTv === "tv"
               ? fullMovieDetail.first_air_date
               : runtime + `mins.`}
@@ -156,13 +156,13 @@ const MovieDetails = () => {
           <p className=" text-[#86888d]">
             {movieOrTv === "tv" ? "Last Air" : "Year"}
           </p>
-          <p>
+          <p className="text-sm">
             {movieOrTv === "tv" ? fullMovieDetail.last_air_date : releaseYear}
           </p>
         </div>
         <div>
           <p className=" text-[#86888d]">Status</p>
-          <p className="">{fullMovieDetail.status}</p>
+          <p className="text-sm">{fullMovieDetail.status}</p>
         </div>
       </div>
       <div className="mb-8">

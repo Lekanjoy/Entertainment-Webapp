@@ -26,7 +26,7 @@ const SearchResultsOrTrending = ({ trending, loadingTrending }) => {
           {loadingTrending
             ? [...Array(20)].map((_, i) => <SkeletonLoaderTrending key={i} />)
             : trending.map((item) => (
-                <Link key={item.id} to={`/movies/trending/${item.id}`}>
+                <Link key={item.id} to={`/trending/${item.id}`}>
                   <Trending  trending={item} />
                 </Link>
               ))}

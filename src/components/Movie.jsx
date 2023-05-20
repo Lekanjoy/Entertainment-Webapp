@@ -5,7 +5,7 @@ import movieIcon from "../assets/trending-assets/movieIcon.svg";
 import playIcon from "../assets/playIcon.svg";
 
 const Movie = ({ movie }) => {
-  const release_date = movie.release_date;
+  const release_date = movie.release_date || movie.first_air_date;
 
   return (
     <div className="movieContainer relative w-full ">
@@ -32,7 +32,7 @@ const Movie = ({ movie }) => {
       />
       <div className="flex flex-col  bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">
-          <p>{movie.release_date ? release_date?.slice(0, 4) : "N/A"}</p>
+          <p>{ release_date?.slice(0, 4) || "N/A"}</p>
           <div className="flex gap-x-1">
             <div className="flex gap-x-2">
               <p className="opacity-50">•</p>
@@ -40,10 +40,10 @@ const Movie = ({ movie }) => {
             </div>
             <p>{movie.media_type ? movie.media_type : "Movie"}</p>
           </div>
-          <div className="flex gap-x-2">
+          {/* <div className="flex gap-x-2">
             <p className="opacity-50">•</p>
             <p>PG</p>
-          </div>
+          </div> */}
         </div>
         <h2 className="text-[14px] font-medium mt-1">
           {movie.title ? movie.title : movie.original_name}

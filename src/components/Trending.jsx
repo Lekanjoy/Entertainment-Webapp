@@ -4,7 +4,7 @@ import movieIcon from "../assets/trending-assets/movieIcon.svg";
 import playIcon from "../assets/playIcon.svg";
 
 const Trending = ({ trending }) => {
-  const release_date = trending.release_date;
+  const release_date = trending.release_date || trending.first_air_date;
 
   return (
     <div className="trendingLogo relative w-full min-w-[240px] max-h-[140px]">
@@ -34,10 +34,10 @@ const Trending = ({ trending }) => {
             <p>{trending.media_type}</p>
           </div>
 
-          <div className="flex gap-x-2">
+          {/* <div className="flex gap-x-2">
             <p className="opacity-50">•</p>
             <p>PG</p>
-          </div>
+          </div> */}
         </div>
         <h2 className="text-[15px] font-medium mt-1">
           {trending.title ? trending.title : trending.original_name}

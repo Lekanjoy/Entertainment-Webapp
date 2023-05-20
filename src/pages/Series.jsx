@@ -52,7 +52,7 @@ const Series = () => {
         {loadingSeries
           ? [...Array(20)].map((_, i) => <SkeletonLoaderMovies key={i} />)
           : series.map((tv) => (
-              <Link key={tv.id} to={`/movies/tv/${tv.id}`}>
+              <Link key={tv.id} to={`/series/tv/${tv.id}`}>
                 <TV movie={tv} />
               </Link>
             ))}

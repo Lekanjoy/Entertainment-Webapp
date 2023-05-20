@@ -34,7 +34,7 @@ const TV = ({movie}) => {
         <div className="flex gap-x-4 font-thin text-xs">
           <p>{movie.first_air_date ? first_air_date?.slice(0, 4) : "N/A"}</p>
           <div className="flex gap-x-1">
-            <div className="flex gap-x-2">
+            <div className="flex gap-x-2 items-center">
               <p className="opacity-50">•</p>
               <img src={seriesIcon} alt="Movie Icon" />
             </div>

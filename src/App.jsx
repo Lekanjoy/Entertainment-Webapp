@@ -159,8 +159,8 @@ function App() {
             <Route path="/series" element={<Series />} />
             <Route path="/bookmark" element={<Boookmarks />} />
             <Route path="/movies/movie/:id" element={<MovieDetails />} />
-            <Route path="/movies/trending/:id" element={<MovieDetails />} />
-            <Route path="/movies/tv/:id" element={<MovieDetails />} />
+            <Route path="/trending/:id" element={<MovieDetails />} />
+            <Route path="/series/tv/:id" element={<MovieDetails />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
