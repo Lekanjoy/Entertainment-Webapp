@@ -13,7 +13,6 @@ const Recommended = () => {
         {[...Array(10)].map((_, i) => (
           <SkeletonLoaderMovies key={i} />
         ))}
-        ;
       </div>
     );
   }

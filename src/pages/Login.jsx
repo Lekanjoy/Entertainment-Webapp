@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login, useAuth } from "../firebase-config";
+import { login } from "../firebase-config";
 import moviesLogo from "../assets/MovieLogo.svg";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,13 +16,16 @@ const Login = () => {
     e.preventDefault();
     if (emailRef.current.value == "" || passwordRef.current.value == "") {
       setError(true);
+      alert("error!");
       return;
     }
     setError(false);
     setLoading(true);
     try {
-      await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/");
+        await login(emailRef.current.value, passwordRef.current.value);
+        setTimeout(() => {       
+          navigate("/");
+        }, 2000);
     } catch (error) {
       console.error(error);
     }

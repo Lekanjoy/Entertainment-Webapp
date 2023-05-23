@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import movieLogo from "../assets/MovieLogo.svg";
 import userIcon from "../assets/header-assets/user.svg";
+import { useAuth } from "../firebase-config";
 
 const Header = () => {
   const [fill, setFill] = useState("");
   const [fill2, setFill2] = useState("");
   const [fill3, setFill3] = useState("");
   const [fill4, setFill4] = useState("");
+
 
   return (
     <header className="flex justify-between items-center bg-[#161D2F] px-4 py-[18px] fixed left-0 top-0 w-full z-20 lg:left-3 lg:top-20 lg:flex-col lg:w-fit lg:min-h-[80vh]">
