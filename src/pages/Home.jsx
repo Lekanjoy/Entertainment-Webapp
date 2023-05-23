@@ -29,7 +29,7 @@ const Home = () => {
           <p
             onMouseEnter={() => setToolTip(true)}
             onMouseLeave={() => setToolTip(false)}
-            className="border font-medium mt-1 text-xs px-2 rounded-md cursor-pointer"
+            className="border font-medium mt-1 text-xs px-2 rounded-md cursor-pointer hidden lg:block "
           >
             ὶ
           </p>

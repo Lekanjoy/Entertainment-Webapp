@@ -2,6 +2,7 @@ import React from "react";
 import img from "../assets/trending-assets/trendingImg.svg";
 import bookmarkIcon from "../assets/trending-assets/bookmarkIcon.svg";
 import movieIcon from "../assets/trending-assets/movieIcon.svg";
+import tvIcon from "../assets/trending-assets/series.svg";
 import playIcon from "../assets/playIcon.svg";
 
 const Movie = ({ movie }) => {
@@ -32,18 +33,14 @@ const Movie = ({ movie }) => {
       />
       <div className="flex flex-col  bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">
-          <p>{ release_date?.slice(0, 4) || "N/A"}</p>
+          <p>{release_date?.slice(0, 4) || "N/A"}</p>
           <div className="flex gap-x-1">
             <div className="flex gap-x-2">
               <p className="opacity-50">•</p>
-              <img src={movieIcon} alt="Movie Icon" />
+              <img src={movie.media_type === 'movie' ? movieIcon : tvIcon} alt="Media Icon" />
             </div>
             <p>{movie.media_type ? movie.media_type : "Movie"}</p>
           </div>
-          {/* <div className="flex gap-x-2">
-            <p className="opacity-50">•</p>
-            <p>PG</p>
-          </div> */}
         </div>
         <h2 className="text-[14px] font-medium mt-1">
           {movie.title ? movie.title : movie.original_name}

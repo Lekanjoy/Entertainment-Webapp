@@ -107,10 +107,9 @@ const MovieDetails = () => {
     }
   }
 
-  console.log(fullMovieDetail);
 
   return (
-    <section className="px-4 pt-20 pb-4 w-full">
+    <section className="px-4 pt-20  w-full">
       <div className="w-full flex justify-center">
         {loading ? (
           <div className="w-4/5 h-[500px] object-cover rounded-xl bg-gray-400 animate-pulse"></div>
@@ -191,19 +190,6 @@ const MovieDetails = () => {
           })}
         </div>
       </div>
-      <a
-        href="https://www.themoviedb.org/"
-        target="_blank"
-        className="w-full mt-8 flex flex-col justify-center items-center"
-      >
-        <p className="mb-2 text-xs tracking-widest text-[#6b7dab]">
-          Powered by
-        </p>
-        <img
-          src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg"
-          className="w-1/4"
-        />
-      </a>
     </section>
   );
 };
