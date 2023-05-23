@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { UserContext } from "./App";
+import { useAuth } from "./firebase-config";
 
 export default function PrivateRoute() {
-  const { currentUser, isLoadingUser } = useContext(UserContext);
+   const { user, isLoading } = useAuth();
 
-  if (isLoadingUser) {
+  if (isLoading) {
     return (
       <div className=" flex justify-center items-center w-full h-screen animate-pulse">
         Getting your account ...
@@ -13,5 +12,5 @@ export default function PrivateRoute() {
     );
   }
 
-  return currentUser ? <Outlet /> : <Navigate to="/login" />;
+  return user ? <Outlet /> : <Navigate to="/login" />;
 }

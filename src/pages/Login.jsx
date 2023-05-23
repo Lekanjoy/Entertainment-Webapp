@@ -2,6 +2,7 @@ import React, { useState, useRef} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../firebase-config";
 import moviesLogo from "../assets/MovieLogo.svg";
+import { useAuth } from "../firebase-config";
 
 
 const Login = () => {
@@ -23,9 +24,9 @@ const Login = () => {
     setLoading(true);
     try {
         await login(emailRef.current.value, passwordRef.current.value);
-        setTimeout(() => {       
+        // setTimeout(() => {       
           navigate("/");
-        }, 2000);
+        // }, 2000);
     } catch (error) {
       console.error(error);
     }

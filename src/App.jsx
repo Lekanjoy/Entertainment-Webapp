@@ -112,31 +112,12 @@ function App() {
       .finally(() => setLoading(false));
   }, [searchTerm]);
 
-  // Get the currently logged in user
-  const user = useAuth();
-  const [isLoadingUser, setIsLoadingUser] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
-
-    useEffect(() => {
-      setCurrentUser(user?.uid);
-      // Simulating a delay to fetch the currentUser
-      const delay = setTimeout(() => {
-        setIsLoadingUser(false);
-      }, 5000);
-
-      return () => {
-        clearTimeout(delay);
-      };
-    }, [user]);
-
+  
 
   return (
     <div className="relative bg-background w-full min-h-screen text-primaryColor font-[Outfit]">
       <UserContext.Provider
         value={{
-          currentUser,
-          setCurrentUser,
-          isLoadingUser,
           searchResults,
           searchTerm,
           setSearchTerm,

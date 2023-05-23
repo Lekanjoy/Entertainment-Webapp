@@ -39,6 +39,8 @@ export function logOut() {
 // Custom Hook for Current User
 export function useAuth() {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -46,8 +48,12 @@ export function useAuth() {
       } else {
         setUser(null);
       }
+      setIsLoading(false); // Set loading to false when user data is retrieved
     });
+
     return unsubscribe;
   }, []);
-  return user;
+
+  return { user, isLoading };
 }
+
