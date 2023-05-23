@@ -6,8 +6,8 @@ export default function PrivateRoute() {
 
   if (isLoading) {
     return (
-      <div className=" flex justify-center items-center w-full h-screen animate-pulse">
-        Getting your account ...
+      <div className=" flex justify-center items-center text-center w-full h-screen animate-pulse">
+        Please wait while we confirm your login status...
       </div>
     );
   }

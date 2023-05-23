@@ -168,8 +168,8 @@ const MovieDetails = () => {
       <div className="mb-8">
         <h2 className="mb-2">Genres</h2>
         <div className="flex gap-x-2 ">
-          {fullMovieDetail?.genres?.map((genre) => (
-            <p className="text-xs  text-darkBlue bg-primaryColor px-2 rounded">
+          {fullMovieDetail?.genres?.map((genre, id) => (
+            <p key={id} className="text-xs  text-darkBlue bg-primaryColor px-2 rounded">
               {genre.name}
             </p>
           ))}

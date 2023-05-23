@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import movieLogo from "../assets/MovieLogo.svg";
 import userIcon from "../assets/header-assets/user.svg";
-import { useAuth } from "../firebase-config";
+import { useAuth, logOut } from "../firebase-config";
 
 const Header = () => {
   const [fill, setFill] = useState("");
   const [fill2, setFill2] = useState("");
   const [fill3, setFill3] = useState("");
   const [fill4, setFill4] = useState("");
+
+  const user = useAuth();
+  const [showMenu, setShowMenu] = useState(false);
 
 
   return (
@@ -100,7 +103,35 @@ const Header = () => {
         </NavLink>
       </div>
 
-      <img src={userIcon} alt="userIcon" />
+      {/* User Profile Dropdown*/}
+      <div className="relative">
+        <img
+          id="user"
+          src={userIcon}
+          alt="userIcon"
+          className="cursor-pointer"
+          onClick={() => setShowMenu(!showMenu)}
+        />
+        {showMenu && (
+          <div
+            id="profile"
+            className=" absolute right-0 top-14 p-4 bg-[#161D2F] rounded-lg"
+          >
+            <h2 className="text-sm font-light mb-8">
+              Hello, <b>{user.user?.email}</b>
+            </h2>
+            <button
+              className="px-4 py-2 bg-redColor w-full rounded hover:bg-white hover:text-redColor transition-all"
+              onClick={() => {
+                setShowMenu(false);
+                logOut();
+              }}
+            >
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
     </header>
   );
 };

@@ -112,8 +112,6 @@ function App() {
       .finally(() => setLoading(false));
   }, [searchTerm]);
 
-  
-
   return (
     <div className="relative bg-background w-full min-h-screen text-primaryColor font-[Outfit]">
       <UserContext.Provider
@@ -141,7 +139,7 @@ function App() {
       >
         <Header />
         <Routes>
-          <Route element={<PrivateRoute/>}>
+          <Route element={<PrivateRoute />}>
             <Route index path="/" element={<Home />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/series" element={<Series />} />
