@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import moviesLogo from "../assets/MovieLogo.svg";
 import { signup } from "../firebase-config";
 
@@ -14,16 +16,25 @@ const Signup = () => {
   async function handleSignUp(e) {
     e.preventDefault();
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      alert("Passwords must match!");
+      // Toast Notification
+      toast.error("Passwords do not match.", {
+        pauseOnHover: false,
+      });
       return;
     }
     setLoading(true);
     try {
       await signup(emailRef.current.value, confirmPasswordRef.current.value);
-      // setTimeout(() => {
-        navigate("/login");
-      // }, 5000);
+      // Toast Notification
+      toast.success("Signup Successful!", {
+        pauseOnHover: false,
+      });
+      navigate("/login");
     } catch (error) {
+      // Toast Notification
+      toast.error("Error Creating Account", {
+        pauseOnHover: false,
+      });
       console.error(error);
     }
     setLoading(false);
@@ -76,6 +87,7 @@ const Signup = () => {
           </Link>
         </div>
       </form>
+      <ToastContainer />
     </section>
   );
 };

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import SkeletonLoaderMovies from "./SkeletonLoaderMovies";
 
 const Recommended = () => {
-  const { recommended, loadingRecommended, searchTerm } = useContext(UserContext);
+  const { recommended, loadingRecommended } = useContext(UserContext);
 
   if (loadingRecommended) {
     return (

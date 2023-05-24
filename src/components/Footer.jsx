@@ -5,7 +5,7 @@ const Footer = () => {
     <a
       href="https://www.themoviedb.org/"
       target="_blank"
-      className="w-full my-8 flex flex-col justify-center items-center"
+      className="w-full my-4 flex flex-col justify-center items-center"
     >
       <p className="mb-2 text-xs tracking-widest text-[#6b7dab]">Powered by</p>
       <img

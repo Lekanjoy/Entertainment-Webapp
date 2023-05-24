@@ -37,7 +37,10 @@ const Movie = ({ movie }) => {
           <div className="flex gap-x-1">
             <div className="flex gap-x-2">
               <p className="opacity-50">•</p>
-              <img src={movie.media_type === 'movie' ? movieIcon : tvIcon} alt="Media Icon" />
+              <img
+                src={movie.media_type === "movie" ? movieIcon : tvIcon}
+                alt="Media Icon"
+              />
             </div>
             <p>{movie.media_type ? movie.media_type : "Movie"}</p>
           </div>

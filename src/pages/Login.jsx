@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { login } from "../firebase-config";
 import moviesLogo from "../assets/MovieLogo.svg";
 
@@ -7,23 +9,31 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const emailRef = useRef();
   const passwordRef = useRef();
 
   async function handleLogin(e) {
     e.preventDefault();
     if (emailRef.current.value == "" || passwordRef.current.value == "") {
-      setError(true);
-      alert("error!");
+      // Toast Notification
+      toast.error("Missing credentials!", {
+        pauseOnHover: false,
+      });
       return;
     }
-    setError(false);
     setLoading(true);
     try {
       await login(emailRef.current.value, passwordRef.current.value);
+      // Toast Notification
+      toast.success("Login Successful!", {
+        pauseOnHover: false,
+      });
       navigate("/");
     } catch (error) {
+      // Toast Notification
+      toast.error("Login Unsuccessful", {
+        pauseOnHover: false,
+      });
       console.error(error);
     }
     setLoading(false);
@@ -36,7 +46,9 @@ const Login = () => {
         alt="Entertainment Webapp Logo"
         className="mb-[58px]"
       />
-      <form className="bg-darkBlue flex flex-col w-full  p-6 rounded-[10px] text-[15px] md:max-w-[400px] md:p-8">
+      <form
+      onSubmit={handleLogin}
+       className="bg-darkBlue flex flex-col w-full  p-6 rounded-[10px] text-[15px] md:max-w-[400px] md:p-8">
         <h1 className=" mb-[40px] text-[32px] font">Login</h1>
         <input
           ref={emailRef}
@@ -48,14 +60,10 @@ const Login = () => {
           ref={passwordRef}
           type="password"
           placeholder="Password"
-          className={
-            error
-              ? `border-redColor outline-none  border-b pl-4 pb-4 mb-[40px] bg-transparent`
-              : `outline-none  border-b border-b-[#5A698F] pl-4 pb-4 mb-[40px] bg-transparent`
-          }
+          className="
+            outline-none  border-b border-b-[#5A698F] pl-4 pb-4 mb-[40px] bg-transparent"
         />
         <button
-          onClick={handleLogin}
           disabled={loading}
           className={
             loading
@@ -72,6 +80,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
+      <ToastContainer />
     </section>
   );
 };

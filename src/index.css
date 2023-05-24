@@ -5,9 +5,10 @@
 @tailwind utilities;
 
 @layer base {
-    *{
+    * {
         -webkit-tap-highlight-color: transparent;
     }
+
     .trendingLogo::after {
         content: "";
         display: block;
@@ -21,16 +22,21 @@
         border-radius: 8px;
 
     }
-    .movieContainer,.trendingLogo{
+
+    .movieContainer,
+    .trendingLogo {
         overflow: hidden;
         transition: all 0.2s ease-in-out;
 
     }
-    .playIcon{
+
+    .playIcon {
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
     }
-    .movieContainer:hover .playIcon, .trendingLogo:hover .playIcon{
+
+    .movieContainer:hover .playIcon,
+    .trendingLogo:hover .playIcon {
         opacity: 1;
     }
 }

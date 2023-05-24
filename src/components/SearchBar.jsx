@@ -2,7 +2,6 @@ import React from "react";
 import searchIcon from "../assets/header-assets/search.svg";
 
 const SearchBar = ({ searchTerm, setSearchTerm, placeholder }) => {
-  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };

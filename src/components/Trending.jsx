@@ -33,11 +33,6 @@ const Trending = ({ trending }) => {
             </div>
             <p>{trending.media_type}</p>
           </div>
-
-          {/* <div className="flex gap-x-2">
-            <p className="opacity-50">•</p>
-            <p>PG</p>
-          </div> */}
         </div>
         <h2 className="text-[15px] font-medium mt-1">
           {trending.title ? trending.title : trending.original_name}

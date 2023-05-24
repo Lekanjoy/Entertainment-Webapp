@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import movieLogo from "../assets/MovieLogo.svg";
 import userIcon from "../assets/header-assets/user.svg";
 import { useAuth, logOut } from "../firebase-config";
@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <header className="flex justify-between items-center bg-[#161D2F] px-4 py-[18px] fixed left-0 top-0 w-full z-20 lg:left-3 lg:top-20 lg:flex-col lg:w-fit lg:min-h-[80vh]">
-      <img src={movieLogo} alt="App Logo" />
+      <Link to="/"><img src={movieLogo} alt="App Logo" /></Link>
       <div className="flex gap-x-6 lg:flex-col lg:gap-y-12">
         <NavLink
           to="/"

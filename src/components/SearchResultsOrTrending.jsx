@@ -27,7 +27,7 @@ const SearchResultsOrTrending = ({ trending, loadingTrending }) => {
             ? [...Array(20)].map((_, i) => <SkeletonLoaderTrending key={i} />)
             : trending.map((item) => (
                 <Link key={item.id} to={`/trending/${item.id}`}>
-                  <Trending  trending={item} />
+                  <Trending trending={item} />
                 </Link>
               ))}
         </ScrollContainer>
