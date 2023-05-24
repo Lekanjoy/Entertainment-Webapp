@@ -11,6 +11,7 @@ import Boookmarks from "./pages/Boookmarks";
 import Header from "./components/Header";
 import MovieDetails from "./pages/MovieDetails";
 import Footer from "./components/Footer";
+import Error404 from "./pages/Error404";
 
 export const UserContext = createContext();
 function App() {
@@ -152,6 +153,7 @@ function App() {
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="*" element={<Error404/>} />
           </Routes>
           <Footer />
         </UserContext.Provider>
