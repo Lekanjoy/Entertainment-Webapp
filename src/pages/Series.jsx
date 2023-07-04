@@ -34,8 +34,12 @@ const Series = () => {
     }
   }, [searchTermSeries]);
 
+   useEffect(() => {
+    document.title = 'Popular TVs'  //Modify Func Later
+  });
+
   return (
-    <section className="px-4 pb-12">
+    <section className="px-4 pb-12 lg:pl-32">
       <SearchBar
         searchTerm={searchTermSeries}
         setSearchTerm={setSearchTermSeries}

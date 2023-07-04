@@ -10,9 +10,12 @@ const Home = () => {
     useContext(UserContext);
 
   const [toolTip, setToolTip] = useState(false);
+   useEffect(() => {
+     document.title = 'Home | Entertainment WebApp' //Modify Func Later
+   });
 
   return (
-    <main className="px-4">
+    <main className="px-4 lg:pl-32">
       <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}

@@ -4,10 +4,9 @@ import movieIcon from "../assets/trending-assets/movieIcon.svg";
 import playIcon from "../assets/playIcon.svg";
 
 const Trending = ({ trending }) => {
-  const release_date = trending.release_date || trending.first_air_date;
 
   return (
-    <div className="trendingLogo relative w-full min-w-[240px] max-h-[140px]">
+    <div className="trendingLogo relative w-full min-w-[240px] max-h-[140px] lg:w-[470px] lg:max-h-[230px]">
       <img
         src={`https://image.tmdb.org/t/p/w200${trending.backdrop_path}`}
         alt={trending.title}
@@ -25,7 +24,11 @@ const Trending = ({ trending }) => {
       />
       <div className="flex flex-col absolute bottom-4 left-4 z-10">
         <div className="flex gap-x-4 font-light text-xs">
-          <p>{trending.release_date ? release_date?.slice(0, 4) : "N/A"}</p>
+          <p>
+            {trending.release_date?.slice(0, 4) ||
+              trending.first_air_date?.slice(0, 4) ||
+              "N/A"}
+          </p>
           <div className="flex gap-x-1">
             <div className="flex gap-x-2">
               <p className="opacity-50">•</p>

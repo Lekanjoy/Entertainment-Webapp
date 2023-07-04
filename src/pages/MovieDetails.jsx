@@ -107,87 +107,96 @@ const MovieDetails = () => {
     }
   }
 
+  useEffect(() => {
+    document.title = fullMovieDetail?.title;  //Modify Func Later
+  });
 
   return (
-    <section className="px-4 pt-20  w-full">
-      <div className="w-full flex justify-center">
+    <section className="px-4 pt-20 w-full lg:pl-32 lg:pr-8 lg:flex">
+      <div className="w-full flex justify-center lg:justify-start ">
         {loading ? (
-          <div className="w-4/5 h-[500px] object-cover rounded-xl bg-gray-400 animate-pulse"></div>
+          <div className="w-4/5  h-[500px] object-cover rounded-xl bg-gray-400 animate-pulse"></div>
         ) : (
-          <img
-            src={`https://image.tmdb.org/t/p/original/${fullMovieDetail.poster_path}`}
-            alt={fullMovieDetail.title}
-            className="w-4/5 h-[500px] object-cover rounded-xl "
-          />
+          <div className="w-[80%] overflow-hidden h-[500px]">
+            <img
+              src={`https://image.tmdb.org/t/p/original/${fullMovieDetail.poster_path}`}
+              alt={fullMovieDetail.title}
+              className="block m-auto max-w-full  max-h-full rounded-xl lg:min-w-full lg:object-contain"
+            />
+          </div>
         )}
       </div>
-      <div className="w-full flex flex-col justify-center items-center text-center pb-4">
-        <h1 className="text-2xl font-light mt-4">
-          {fullMovieDetail.title || fullMovieDetail.name}
-        </h1>
-        <p className="font-light text-sm text-[#86888d]">
-          {fullMovieDetail.tagline}
-        </p>
-      </div>
-      <div className="w-full flex flex-col justify-center gap-y-2 items-center pb-4">
-        <p className="text-3xl font-bold">
-          {(fullMovieDetail.vote_average / 2).toFixed(1) || "N/A"}
-        </p>
-        <div className="flex gap-x-1">{stars}</div>
-      </div>
-
-      <div className="w-full flex  justify-between  gap-x-2 py-4">
-        <div>
-          <p className=" text-[#86888d]">Language</p>
-          <p className="text-sm">{spokenLanguage}</p>
-        </div>
-        <div>
-          <p className=" text-[#86888d]">
-            {movieOrTv === "tv" ? "First Air" : "Length"}
-          </p>
-          <p className="text-sm">
-            {movieOrTv === "tv"
-              ? fullMovieDetail.first_air_date
-              : runtime + `mins.`}
+      <div className="lg:">
+        <div className="w-full flex flex-col justify-center items-center text-center pb-4 lg:items-start lg:justify-start">
+          <h1 className="text-2xl font-light mt-4 lg:text-4xl lg:font-medium lg:mt-0">
+            {fullMovieDetail.title || fullMovieDetail.name}
+          </h1>
+          <p className="font-light text-sm text-[#86888d] lg:text-base">
+            {fullMovieDetail.tagline}
           </p>
         </div>
-        <div>
-          <p className=" text-[#86888d]">
-            {movieOrTv === "tv" ? "Last Air" : "Year"}
+        <div className="w-full flex flex-col justify-center gap-y-2 items-center pb-4 lg:gap-x-3 lg:justify-start lg:flex-row">
+          <p className="text-3xl font-bold">
+            {(fullMovieDetail.vote_average / 2).toFixed(1) || "N/A"}
           </p>
-          <p className="text-sm">
-            {movieOrTv === "tv" ? fullMovieDetail.last_air_date : releaseYear}
-          </p>
+          <div className="flex gap-x-1">{stars}</div>
         </div>
-        <div>
-          <p className=" text-[#86888d]">Status</p>
-          <p className="text-sm">{fullMovieDetail.status}</p>
-        </div>
-      </div>
-      <div className="mb-8">
-        <h2 className="mb-2">Genres</h2>
-        <div className="flex gap-x-2 ">
-          {fullMovieDetail?.genres?.map((genre, id) => (
-            <p key={id} className="text-xs  text-darkBlue bg-primaryColor px-2 rounded">
-              {genre.name}
+        <div className="w-full flex  justify-between  gap-x-2 py-4 lg:justify-start lg:gap-x-8">
+          <div>
+            <p className=" text-[#86888d]">Language</p>
+            <p className="text-sm">{spokenLanguage}</p>
+          </div>
+          <div>
+            <p className=" text-[#86888d]">
+              {movieOrTv === "tv" ? "First Air" : "Length"}
             </p>
-          ))}
+            <p className="text-sm">
+              {movieOrTv === "tv"
+                ? fullMovieDetail.first_air_date
+                : runtime + `mins.`}
+            </p>
+          </div>
+          <div>
+            <p className=" text-[#86888d]">
+              {movieOrTv === "tv" ? "Last Air" : "Year"}
+            </p>
+            <p className="text-sm">
+              {movieOrTv === "tv" ? fullMovieDetail.last_air_date : releaseYear}
+            </p>
+          </div>
+          <div>
+            <p className=" text-[#86888d]">Status</p>
+            <p className="text-sm">{fullMovieDetail.status}</p>
+          </div>
         </div>
-      </div>
-      <div>
-        <h2 className="mb-3">Synopsis</h2>
-        <p className=" font-light">{fullMovieDetail.overview}</p>
-      </div>
-      <div className="mt-8 w-full">
-        <h2 className="mb-3">Cast</h2>
-        <div className="flex gap-2 flex-wrap w-full">
-          {cast?.map((actor) => {
-            return (
-              <p key={actor.name} className="text-sm border px-2 rounded">
-                {actor.name}
+        <div className="mb-8">
+          <h2 className="mb-2">Genres</h2>
+          <div className="flex gap-x-2 ">
+            {fullMovieDetail?.genres?.map((genre, id) => (
+              <p
+                key={id}
+                className="text-xs  text-darkBlue bg-primaryColor px-2 rounded lg:text-sm lg:px-3 lg:py-1"
+              >
+                {genre.name}
               </p>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 className="mb-3">Synopsis</h2>
+          <p className=" font-light">{fullMovieDetail.overview}</p>
+        </div>
+        <div className="mt-8 w-full">
+          <h2 className="mb-3">Cast</h2>
+          <div className="flex gap-2 flex-wrap w-full">
+            {cast?.map((actor) => {
+              return (
+                <p key={actor.name} className="text-sm border px-2 rounded">
+                  {actor.name}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

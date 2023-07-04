@@ -7,7 +7,7 @@ const SearchBar = ({ searchTerm, setSearchTerm, placeholder }) => {
   };
 
   return (
-    <form className="relative pt-24 w-full ">
+    <form className="relative pt-24 w-full lg:pt-16">
       <label htmlFor="search">
         <img
           src={searchIcon}
