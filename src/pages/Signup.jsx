@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moviesLogo from "../assets/MovieLogo.svg";
-import { signup } from "../firebase-config";
+import { signup, auth } from "../firebase-config";
+import { sendEmailVerification } from "firebase/auth";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Signup = () => {
   async function handleSignUp(e) {
     e.preventDefault();
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+
       // Toast Notification
       toast.error("Passwords do not match.", {
         pauseOnHover: false,
@@ -25,11 +27,24 @@ const Signup = () => {
     setLoading(true);
     try {
       await signup(emailRef.current.value, confirmPasswordRef.current.value);
+
       // Toast Notification
       toast.success("Signup Successful!", {
         pauseOnHover: false,
       });
+
+      // Send Email Verification
+      await sendEmailVerification(auth?.currentUser)
+        .then(() => {
+          toast.success("Email Verification Sent!");
+        })
+        .catch((error) => {
+          toast.success("Error Sending Verification Email!");
+          console.error(error);
+        });
+        
       navigate("/login");
+
     } catch (error) {
       // Toast Notification
       toast.error("Error Creating Account", {

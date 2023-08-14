@@ -116,7 +116,7 @@ const Header = () => {
           {showMenu && (
             <div
               id="profile"
-              className=" absolute min-w-[250px] border right-0 top-14 p-4 bg-[#161D2F] rounded-lg"
+              className=" absolute min-w-[250px] border right-0 top-14 p-4 bg-[#161D2F] rounded-lg lg:-top-[85px] lg:-right-[330px]"
             >
               <h2 className="text-sm font-light mb-8">
                 Hello, <b>{user.user?.email}</b>

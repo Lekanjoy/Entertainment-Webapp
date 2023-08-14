@@ -2,11 +2,12 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { login } from "../firebase-config";
+import { login, auth, useAuth } from "../firebase-config";
 import moviesLogo from "../assets/MovieLogo.svg";
 
 const Login = () => {
   const navigate = useNavigate();
+  const currentUser = useAuth();
 
   const [loading, setLoading] = useState(false);
   const emailRef = useRef();
@@ -14,13 +15,21 @@ const Login = () => {
 
   async function handleLogin(e) {
     e.preventDefault();
+
+    // check if email and password are empty
     if (emailRef.current.value == "" || passwordRef.current.value == "") {
-      // Toast Notification
       toast.error("Missing credentials!", {
         pauseOnHover: false,
       });
       return;
+    };
+
+    // check if current user email is verified
+    if (auth?.currentUser?.emailVerified === false) {
+      toast.warn("Please Verify Your Email!");
+      return;
     }
+
     setLoading(true);
     try {
       await login(emailRef.current.value, passwordRef.current.value);
@@ -28,6 +37,7 @@ const Login = () => {
       toast.success("Login Successful!", {
         pauseOnHover: false,
       });
+
       navigate("/");
     } catch (error) {
       // Toast Notification
@@ -47,8 +57,9 @@ const Login = () => {
         className="mb-[58px]"
       />
       <form
-      onSubmit={handleLogin}
-       className="bg-darkBlue flex flex-col w-full  p-6 rounded-[10px] text-[15px] md:max-w-[400px] md:p-8">
+        onSubmit={handleLogin}
+        className="bg-darkBlue flex flex-col w-full  p-6 rounded-[10px] text-[15px] md:max-w-[400px] md:p-8"
+      >
         <h1 className=" mb-[40px] text-[32px] font">Login</h1>
         <input
           ref={emailRef}

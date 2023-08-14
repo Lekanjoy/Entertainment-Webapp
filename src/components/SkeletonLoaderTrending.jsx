@@ -2,7 +2,7 @@ import React from "react";
 
 const SkeletonLoaderTrending = () => {
   return (
-    <div className=" relative w-full min-w-[240px] max-h-[140px]  animate-pulse ">
+    <div className=" relative w-full min-w-[240px] max-h-[140px]  animate-pulse lg:w-[470px] lg:max-h-[230px]">
       <div className="  max-w-[240px] h-[140px] rounded-lg  bg-gray-500"></div>
       <div className="absolute top-2 right-2 cursor-pointer bg-gray-700  w-8 h-8 rounded-full bg-[rgba(0,_0,_0,_0.2)]"></div>
       <div className="flex flex-col absolute bottom-4 left-4 z-10">

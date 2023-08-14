@@ -11,7 +11,7 @@ const Home = () => {
 
   const [toolTip, setToolTip] = useState(false);
    useEffect(() => {
-     document.title = 'Home | Entertainment WebApp' //Modify Func Later
+     document.title = 'Home | Entertainment WebApp'
    });
 
   return (
